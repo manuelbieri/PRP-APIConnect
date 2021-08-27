@@ -1,3 +1,4 @@
+import http.client
 import unittest
 from typing import List
 
@@ -30,3 +31,16 @@ class PRPConnectorTest(unittest.TestCase):
         self.assertEqual({'message': 'Entry deleted successfully', 'type': 'success'}, delete_response)
         read_response_2 = PRPConnectorTest.connection.get_item('todo', 'title', 'test')
         self.assertEqual([], read_response_2)
+
+    def test_write_update_delete(self):
+        PRPConnectorTest.connection.write_item('todo', 'title=test&description=test description')
+        read_response_1: List[dict] = PRPConnectorTest.connection.get_item('todo', 'title', 'test')
+        item_id: int = int(read_response_1[0]['id'])
+        update_response: http.client.HTTPResponse = PRPConnectorTest.connection.update_item('todo', 'id={id}&title=update&description=updated description'.format(id=str(item_id)))
+        self.assertEqual(200, update_response.status)
+        read_response_2: List[dict] = PRPConnectorTest.connection.get_item('todo', 'title', 'test')
+        self.assertEqual([], read_response_2)
+        read_response_3: List[dict] = PRPConnectorTest.connection.get_item('todo', 'title', 'update')
+        self.assertEqual('updated description', read_response_3[0]['description'])
+        self.assertEqual(item_id, read_response_3[0]['id'])
+        PRPConnectorTest.connection.delete_item('todo', item_id)

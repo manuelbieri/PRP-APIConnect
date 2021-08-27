@@ -65,3 +65,12 @@ class PRPConnector:
         request: urllib.request.Request = self._request_builder(api_url)
         response = urllib.request.urlopen(request)
         return self._parse_response(response)
+
+    def update_item(self, api_part:str, update_query: str):
+        assert api_part is not None
+        assert update_query is not None
+        update_query = update_query.replace(' ', '%20')
+        api_url: str = api_part + '?' + update_query
+        request: urllib.request.Request = self._request_builder(api_url, method='PUT')
+        response = urllib.request.urlopen(request)
+        return response
