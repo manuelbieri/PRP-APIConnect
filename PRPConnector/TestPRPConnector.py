@@ -1,7 +1,7 @@
 import unittest
 from typing import List
 
-import PRPConnector.Connector as Connector
+import Connector
 
 
 class PRPConnectorTest(unittest.TestCase):
