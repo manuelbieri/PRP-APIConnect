@@ -11,11 +11,11 @@
 ## Installation
 - Install the current release over PyPI:
 
-  `pip install PRPConnector`
+  `$ pip install PRPConnector`
   
  - Clone the whole repository for the latest version:
 
-   `gh repo clone manuelbieri/PRP-APIConnect`
+   `$ git clone https://github.com/manuelbieri/PRP-APIConnect.git`
    
 ## Documentation
 
