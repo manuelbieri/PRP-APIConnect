@@ -25,5 +25,5 @@ jobs:
           python -m pip install --upgrade pip
       - name: Run Test
         run: |
-          cd APIConnector
+          cd PRPConnector
           python -m unittest Test*.py
