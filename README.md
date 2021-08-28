@@ -34,7 +34,7 @@ The code documentation is hosted on [github.io/PRP-APIConnect](https://manuelbie
 ```
 import PRPConnector.ToDoConnector as Connector
 
-connection: Connector.PRPConnector = Connector.PRPConnector('username', 'password', 'domain_url')
+connection: Connector.ToDoConnector = Connector.ToDoConnector('username', 'password', 'domain_url')
 connection.get_all_todo()
 ```
 
