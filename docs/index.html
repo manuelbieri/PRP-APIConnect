@@ -30,6 +30,9 @@
                                 <a class="function" href="#PRPConnector.__init__">PRPConnector</a>
                         </li>
                         <li>
+                                <a class="variable" href="#PRPConnector.url">url</a>
+                        </li>
+                        <li>
                                 <a class="function" href="#PRPConnector.login">login</a>
                         </li>
                         <li>
@@ -61,6 +64,9 @@
                             <ul class="memberlist">
                         <li>
                                 <a class="function" href="#ToDoConnector.__init__">ToDoConnector</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ToDoConnector.api_part">api_part</a>
                         </li>
                         <li>
                                 <a class="function" href="#ToDoConnector.get_all_todo">get_all_todo</a>
@@ -106,18 +112,32 @@ Connector    </h1>
 
 
 <span class="k">class</span> <span class="nc">PRPConnector</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See the &lt;a href=&quot;https://github.com/manuelbieri/PRP-APIConnect&quot;&gt;GitHub - Repository&lt;/a&gt; for more information about the development.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up a valid object.</span>
+
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param base_url: domain of the api.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
+        <span class="sd">&quot;&quot;&quot;Url of the domain.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Path to the api (additionally to the domain).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span>
+        <span class="sd">&quot;&quot;&quot;Complete url to the api.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Auth-header to access user-specific content.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Login for session with the api.</span>
 
-<span class="sd">        :param username: of the current user.&lt;br&gt;</span>
-<span class="sd">        :param password: of the current user.&lt;br&gt;</span>
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
 <span class="sd">        :return: auth-token ({&#39;Authorization&#39;: Bearer token&#39;})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -137,9 +157,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all items of the user in the specified part of the api.</span>
 
-<span class="sd">        :param api_part: to specify by the client.&lt;br&gt;</span>
+<span class="sd">        :param api_part: to specify by the client (not None).&lt;br&gt;</span>
 <span class="sd">        :return: all items of the user in the specified part of the api.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">api_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">api_part</span> <span class="o">+</span> <span class="s1">&#39;/index&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">api_url</span><span class="p">)</span>
 
@@ -155,9 +176,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a response according to the supplied url.</span>
 
-<span class="sd">        :param api_url: to get a response for.&lt;br&gt;</span>
+<span class="sd">        :param api_url: to get a response for (not None).&lt;br&gt;</span>
 <span class="sd">        :return: response of the api for the specified url.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_builder</span><span class="p">(</span><span class="n">api_url</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -167,9 +189,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses a response from a string to json.</span>
 
-<span class="sd">        :param response: string to parse.&lt;br&gt;</span>
+<span class="sd">        :param response: string to parse (not None).&lt;br&gt;</span>
 <span class="sd">        :return: parsed json.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="n">data_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data_json</span>
@@ -178,19 +201,21 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds a request out of a url and a method.</span>
 
-<span class="sd">        :param api_url: for the request to the api.&lt;br&gt;</span>
-<span class="sd">        :param method: for the request.&lt;br&gt;</span>
+<span class="sd">        :param api_url: for the request to the api (not None).&lt;br&gt;</span>
+<span class="sd">        :param method: for the request (&#39;GET&#39;, &#39;POST&#39;, &#39;DELETE&#39;, &#39;PUT&#39;).&lt;br&gt;</span>
 <span class="sd">        :return: complete request for the api.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">]</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="n">api_url</span>
-        <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_part</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">write_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write an item into the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param write_query: consisting of the necessary information for a new entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param write_query: consisting of the necessary information for a new entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -204,8 +229,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param delete_id: of the item to delete.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -218,9 +243,9 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get items from the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param key: the column in the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param value: the value the column in the database has to satisfy.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param key: the column in the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
 <span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -235,8 +260,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param update_query: consisting of the necessary information to update an entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param update_query: consisting of the necessary information to update an entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -251,27 +276,65 @@ Connector    </h1>
 <span class="k">class</span> <span class="nc">ToDoConnector</span><span class="p">(</span><span class="n">PRPConnector</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">base_url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Specifies the part of the api.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_all_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all items of the user in the ToDoApi.</span>
+
+<span class="sd">        :return: all items of the user in the ToDoApi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get items from the database over the ToDoApi.</span>
+
+<span class="sd">        :param key: the column in the database to search in (&#39;id&#39;, &#39;title&#39;, &#39;description&#39;).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
+<span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write an item into the database over the ToDoApi.</span>
+
+<span class="sd">        The arguments specify the necessary information for a new item in the database.</span>
+
+<span class="sd">        :param title: of the new item (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: of the new item  (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;title=</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&amp;description=</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">delete_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete an item in the database over the ToDoApi.</span>
+
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">delete_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">update_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates an item in the database over the api.</span>
+
+<span class="sd">        The arguments specify the necessary information to update an item in the database.</span>
+
+<span class="sd">        :param item_id: of the item to update (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :param title: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">item_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -294,18 +357,32 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">PRPConnector</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    See the &lt;a href=&quot;https://github.com/manuelbieri/PRP-APIConnect&quot;&gt;GitHub - Repository&lt;/a&gt; for more information about the development.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up a valid object.</span>
+
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param base_url: domain of the api.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
+        <span class="sd">&quot;&quot;&quot;Url of the domain.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Path to the api (additionally to the domain).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span>
+        <span class="sd">&quot;&quot;&quot;Complete url to the api.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Auth-header to access user-specific content.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Login for session with the api.</span>
 
-<span class="sd">        :param username: of the current user.&lt;br&gt;</span>
-<span class="sd">        :param password: of the current user.&lt;br&gt;</span>
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
 <span class="sd">        :return: auth-token ({&#39;Authorization&#39;: Bearer token&#39;})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -325,9 +402,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all items of the user in the specified part of the api.</span>
 
-<span class="sd">        :param api_part: to specify by the client.&lt;br&gt;</span>
+<span class="sd">        :param api_part: to specify by the client (not None).&lt;br&gt;</span>
 <span class="sd">        :return: all items of the user in the specified part of the api.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">api_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">api_part</span> <span class="o">+</span> <span class="s1">&#39;/index&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">api_url</span><span class="p">)</span>
 
@@ -343,9 +421,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets a response according to the supplied url.</span>
 
-<span class="sd">        :param api_url: to get a response for.&lt;br&gt;</span>
+<span class="sd">        :param api_url: to get a response for (not None).&lt;br&gt;</span>
 <span class="sd">        :return: response of the api for the specified url.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_builder</span><span class="p">(</span><span class="n">api_url</span><span class="p">)</span>
         <span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -355,9 +434,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Parses a response from a string to json.</span>
 
-<span class="sd">        :param response: string to parse.&lt;br&gt;</span>
+<span class="sd">        :param response: string to parse (not None).&lt;br&gt;</span>
 <span class="sd">        :return: parsed json.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">raw_data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
         <span class="n">data_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data_json</span>
@@ -366,19 +446,21 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds a request out of a url and a method.</span>
 
-<span class="sd">        :param api_url: for the request to the api.&lt;br&gt;</span>
-<span class="sd">        :param method: for the request.&lt;br&gt;</span>
+<span class="sd">        :param api_url: for the request to the api (not None).&lt;br&gt;</span>
+<span class="sd">        :param method: for the request (&#39;GET&#39;, &#39;POST&#39;, &#39;DELETE&#39;, &#39;PUT&#39;).&lt;br&gt;</span>
 <span class="sd">        :return: complete request for the api.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">assert</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span><span class="p">]</span>
         <span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="n">api_url</span>
-        <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_item</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_part</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">write_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write an item into the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param write_query: consisting of the necessary information for a new entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param write_query: consisting of the necessary information for a new entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -392,8 +474,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param delete_id: of the item to delete.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -406,9 +488,9 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get items from the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param key: the column in the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param value: the value the column in the database has to satisfy.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param key: the column in the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
 <span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -423,8 +505,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param update_query: consisting of the necessary information to update an entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param update_query: consisting of the necessary information to update an entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -438,7 +520,9 @@ Connector    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>See the <a href="https://github.com/manuelbieri/PRP-APIConnect">GitHub - Repository</a> for more information about the development.</p>
+</div>
+
 
                             <div id="PRPConnector.__init__" class="classattr">
                                         <div class="attr function"><a class="headerlink" href="#PRPConnector.__init__">#&nbsp;&nbsp</a>
@@ -450,15 +534,43 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_path</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up a valid object.</span>
+
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param base_url: domain of the api.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">base_url</span>
+        <span class="sd">&quot;&quot;&quot;Url of the domain.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;api/v1/&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Path to the api (additionally to the domain).&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_url</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_path</span>
+        <span class="sd">&quot;&quot;&quot;Complete url to the api.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+        <span class="sd">&quot;&quot;&quot;Auth-header to access user-specific content.&quot;&quot;&quot;</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Sets up a valid object.</p>
+
+<p>:param username: of the current user (not None).<br>
+:param password: for the current user (not None).<br>
+:param base_url: domain of the api.</p>
+</div>
+
+
+                            </div>
+                            <div id="PRPConnector.url" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#PRPConnector.url">#&nbsp;&nbsp</a>
+
+        <span class="name">url</span><span class="annotation">: str</span>
+    </div>
+
+            <div class="docstring"><p>Complete url to the api.</p>
+</div>
+
 
                             </div>
                             <div id="PRPConnector.login" class="classattr">
@@ -475,8 +587,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Login for session with the api.</span>
 
-<span class="sd">        :param username: of the current user.&lt;br&gt;</span>
-<span class="sd">        :param password: of the current user.&lt;br&gt;</span>
+<span class="sd">        :param username: of the current user (not None).&lt;br&gt;</span>
+<span class="sd">        :param password: for the current user (not None).&lt;br&gt;</span>
 <span class="sd">        :return: auth-token ({&#39;Authorization&#39;: Bearer token&#39;})</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">username</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -491,8 +603,8 @@ Connector    </h1>
 
             <div class="docstring"><p>Login for session with the api.</p>
 
-<p>:param username: of the current user.<br>
-:param password: of the current user.<br>
+<p>:param username: of the current user (not None).<br>
+:param password: for the current user (not None).<br>
 :return: auth-token ({'Authorization': Bearer token'})</p>
 </div>
 
@@ -536,9 +648,10 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns all items of the user in the specified part of the api.</span>
 
-<span class="sd">        :param api_part: to specify by the client.&lt;br&gt;</span>
+<span class="sd">        :param api_part: to specify by the client (not None).&lt;br&gt;</span>
 <span class="sd">        :return: all items of the user in the specified part of the api.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">api_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">api_part</span> <span class="o">+</span> <span class="s1">&#39;/index&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">api_url</span><span class="p">)</span>
 </pre></div>
@@ -547,7 +660,7 @@ Connector    </h1>
 
             <div class="docstring"><p>Returns all items of the user in the specified part of the api.</p>
 
-<p>:param api_part: to specify by the client.<br>
+<p>:param api_part: to specify by the client (not None).<br>
 :return: all items of the user in the specified part of the api.</p>
 </div>
 
@@ -595,8 +708,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write an item into the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param write_query: consisting of the necessary information for a new entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param write_query: consisting of the necessary information for a new entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -611,8 +724,8 @@ Connector    </h1>
 
             <div class="docstring"><p>Write an item into the database over the api.</p>
 
-<p>:param api_part: part of the database to manipulate.<br>
-:param write_query: consisting of the necessary information for a new entry.<br>
+<p>:param api_part: part of the database to manipulate (not None).<br>
+:param write_query: consisting of the necessary information for a new entry (not None).<br>
 :return: status information.</p>
 </div>
 
@@ -632,8 +745,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Delete an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param delete_id: of the item to delete.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -647,8 +760,8 @@ Connector    </h1>
 
             <div class="docstring"><p>Delete an item in the database over the api.</p>
 
-<p>:param api_part: part of the database to manipulate.<br>
-:param delete_id: of the item to delete.<br>
+<p>:param api_part: part of the database to manipulate (not None).<br>
+:param delete_id: of the item to delete (&gt;0).<br>
 :return: status information.</p>
 </div>
 
@@ -668,9 +781,9 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get items from the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param key: the column in the database to search in.&lt;br&gt;</span>
-<span class="sd">        :param value: the value the column in the database has to satisfy.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param key: the column in the database to search in (not None).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
 <span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -686,9 +799,9 @@ Connector    </h1>
 
             <div class="docstring"><p>Get items from the database over the api.</p>
 
-<p>:param api_part: part of the database to search in.<br>
-:param key: the column in the database to search in.<br>
-:param value: the value the column in the database has to satisfy.<br>
+<p>:param api_part: part of the database to search in (not None).<br>
+:param key: the column in the database to search in (not None).<br>
+:param value: the value the column in the database has to satisfy (not None).<br>
 :return: list of all entries satisfying the input key-value specifications.</p>
 </div>
 
@@ -708,8 +821,8 @@ Connector    </h1>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Updates an item in the database over the api.</span>
 
-<span class="sd">        :param api_part: part of the database to manipulate.&lt;br&gt;</span>
-<span class="sd">        :param update_query: consisting of the necessary information to update an entry.&lt;br&gt;</span>
+<span class="sd">        :param api_part: part of the database to manipulate (not None).&lt;br&gt;</span>
+<span class="sd">        :param update_query: consisting of the necessary information to update an entry (not None).&lt;br&gt;</span>
 <span class="sd">        :return: status information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">api_part</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -725,8 +838,8 @@ Connector    </h1>
 
             <div class="docstring"><p>Updates an item in the database over the api.</p>
 
-<p>:param api_part: part of the database to manipulate.<br>
-:param update_query: consisting of the necessary information to update an entry.<br>
+<p>:param api_part: part of the database to manipulate (not None).<br>
+:param update_query: consisting of the necessary information to update an entry (not None).<br>
 :return: status information.</p>
 </div>
 
@@ -747,27 +860,65 @@ Connector    </h1>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">ToDoConnector</span><span class="p">(</span><span class="n">PRPConnector</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">base_url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Specifies the part of the api.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">get_all_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all items of the user in the ToDoApi.</span>
+
+<span class="sd">        :return: all items of the user in the ToDoApi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get items from the database over the ToDoApi.</span>
+
+<span class="sd">        :param key: the column in the database to search in (&#39;id&#39;, &#39;title&#39;, &#39;description&#39;).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
+<span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write an item into the database over the ToDoApi.</span>
+
+<span class="sd">        The arguments specify the necessary information for a new item in the database.</span>
+
+<span class="sd">        :param title: of the new item (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: of the new item  (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;title=</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&amp;description=</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">write_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">delete_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete an item in the database over the ToDoApi.</span>
+
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">delete_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">update_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates an item in the database over the api.</span>
+
+<span class="sd">        The arguments specify the necessary information to update an item in the database.</span>
+
+<span class="sd">        :param item_id: of the item to update (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :param title: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">item_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -777,7 +928,9 @@ Connector    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>See the <a href="https://github.com/manuelbieri/PRP-APIConnect">GitHub - Repository</a> for more information about the development.</p>
+</div>
+
 
                             <div id="ToDoConnector.__init__" class="classattr">
                                         <div class="attr function"><a class="headerlink" href="#ToDoConnector.__init__">#&nbsp;&nbsp</a>
@@ -790,12 +943,30 @@ Connector    </h1>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">,</span> <span class="n">base_url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;todo&#39;</span>
+        <span class="sd">&quot;&quot;&quot;Specifies the part of the api.&quot;&quot;&quot;</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Sets up a valid object.</p>
+
+<p>:param username: of the current user (not None).<br>
+:param password: for the current user (not None).<br>
+:param base_url: domain of the api.</p>
+</div>
+
+
+                            </div>
+                            <div id="ToDoConnector.api_part" class="classattr">
+                                            <div class="attr variable"><a class="headerlink" href="#ToDoConnector.api_part">#&nbsp;&nbsp</a>
+
+        <span class="name">api_part</span><span class="annotation">: str</span>
+    </div>
+
+            <div class="docstring"><p>Specifies the part of the api.</p>
+</div>
+
 
                             </div>
                             <div id="ToDoConnector.get_all_todo" class="classattr">
@@ -809,12 +980,21 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_all_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns all items of the user in the ToDoApi.</span>
+
+<span class="sd">        :return: all items of the user in the ToDoApi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">)</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Returns all items of the user in the ToDoApi.</p>
+
+<p>:return: all items of the user in the ToDoApi.</p>
+</div>
+
 
                             </div>
                             <div id="ToDoConnector.get_item_todo" class="classattr">
@@ -828,6 +1008,13 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">get_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get items from the database over the ToDoApi.</span>
+
+<span class="sd">        :param key: the column in the database to search in (&#39;id&#39;, &#39;title&#39;, &#39;description&#39;).&lt;br&gt;</span>
+<span class="sd">        :param value: the value the column in the database has to satisfy (not None).&lt;br&gt;</span>
+<span class="sd">        :return: list of all entries satisfying the input key-value specifications.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">]</span>
         <span class="k">assert</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
@@ -835,7 +1022,13 @@ Connector    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Get items from the database over the ToDoApi.</p>
+
+<p>:param key: the column in the database to search in ('id', 'title', 'description').<br>
+:param value: the value the column in the database has to satisfy (not None).<br>
+:return: list of all entries satisfying the input key-value specifications.</p>
+</div>
+
 
                             </div>
                             <div id="ToDoConnector.write_item_todo" class="classattr">
@@ -849,6 +1042,15 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">write_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write an item into the database over the ToDoApi.</span>
+
+<span class="sd">        The arguments specify the necessary information for a new item in the database.</span>
+
+<span class="sd">        :param title: of the new item (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: of the new item  (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;title=</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">&amp;description=</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -857,7 +1059,15 @@ Connector    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Write an item into the database over the ToDoApi.</p>
+
+<p>The arguments specify the necessary information for a new item in the database.</p>
+
+<p>:param title: of the new item (not None).<br>
+:param description: of the new item  (not None).<br>
+:return: status information.</p>
+</div>
+
 
                             </div>
                             <div id="ToDoConnector.delete_item_todo" class="classattr">
@@ -871,13 +1081,24 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">delete_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete an item in the database over the ToDoApi.</span>
+
+<span class="sd">        :param delete_id: of the item to delete (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">delete_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_item</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">api_part</span><span class="p">,</span> <span class="n">delete_id</span><span class="p">)</span>
 </pre></div>
 
         </details>
 
-    
+            <div class="docstring"><p>Delete an item in the database over the ToDoApi.</p>
+
+<p>:param delete_id: of the item to delete (&gt;0).<br>
+:return: status information.</p>
+</div>
+
 
                             </div>
                             <div id="ToDoConnector.update_item_todo" class="classattr">
@@ -891,6 +1112,16 @@ Connector    </h1>
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">update_item_todo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates an item in the database over the api.</span>
+
+<span class="sd">        The arguments specify the necessary information to update an item in the database.</span>
+
+<span class="sd">        :param item_id: of the item to update (&gt;0).&lt;br&gt;</span>
+<span class="sd">        :param title: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :param description: after the update (not None).&lt;br&gt;</span>
+<span class="sd">        :return: status information.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="n">item_id</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="k">assert</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -900,14 +1131,24 @@ Connector    </h1>
 
         </details>
 
-    
+            <div class="docstring"><p>Updates an item in the database over the api.</p>
+
+<p>The arguments specify the necessary information to update an item in the database.</p>
+
+<p>:param item_id: of the item to update (&gt;0).<br>
+:param title: after the update (not None).<br>
+:param description: after the update (not None).<br>
+:return: status information.</p>
+</div>
+
 
                             </div>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt><a href="#PRPConnector">PRPConnector</a></dt>
-                                <dd id="ToDoConnector.login" class="function"><a href="#PRPConnector.login">login</a></dd>
+                                <dd id="ToDoConnector.url" class="variable"><a href="#PRPConnector.url">url</a></dd>
+                <dd id="ToDoConnector.login" class="function"><a href="#PRPConnector.login">login</a></dd>
                 <dd id="ToDoConnector.test_message" class="function"><a href="#PRPConnector.test_message">test_message</a></dd>
                 <dd id="ToDoConnector.get_all" class="function"><a href="#PRPConnector.get_all">get_all</a></dd>
                 <dd id="ToDoConnector.get_user" class="function"><a href="#PRPConnector.get_user">get_user</a></dd>
