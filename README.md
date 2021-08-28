@@ -11,15 +11,39 @@
 ![PyPi](https://github.com/manuelbieri/PRP-APIConnect/actions/workflows/pypi.yml/badge.svg)
 ![PyPI](https://img.shields.io/pypi/v/PRPConnector)
 ![GitHub deployments](https://img.shields.io/github/deployments/manuelbieri/PRP-APIConnect/github-pages?label=docs)
-## Installation
-- Install the current release over PyPI:
 
-  `$ pip install PRPConnector`
+### Installation
+Install the current release over [PyPI](https://pypi.org/project/PRPConnector/):
+
+  ```
+  $ pip install PRPConnector
+  ```
   
- - Clone the whole repository for the latest version:
+Clone the whole [repository](https://github.com/manuelbieri/PRP-APIConnect) for the latest version:
 
-   `$ git clone https://github.com/manuelbieri/PRP-APIConnect.git`
-   
-## Documentation
+  ```
+  $ git clone https://github.com/manuelbieri/PRP-APIConnect.git
+  ```
 
-Currently under construction.
+### Documentation
+
+The code documentation is hosted on [github.io/PRP-APIConnect](https://manuelbieri.github.io/PRP-APIConnect/).
+
+### Example
+[ToDo Connector](PRPConnector/Connector.py)
+```
+import PRPConnector.ToDoConnector as Connector
+
+connection: Connector.PRPConnector = Connector.PRPConnector('username', 'password', 'domain_url')
+connection.get_all_todo()
+```
+
+
+[Basic Connector](PRPConnector/Connector.py)
+```
+import PRPConnector.Connector as Connector
+
+connection: Connector.PRPConnector = Connector.PRPConnector('username', 'password', 'domain_url')
+connection.get_all('todo')
+```
+See the [documentation](https://manuelbieri.github.io/PRP-APIConnect/) for further methods.

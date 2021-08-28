@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='PRPConnector',
     packages=find_packages(),
-    version=0.1,
+    version=1.0,
     license='MIT',
     description='Connector for Clients to the PRP-Backend',
     long_description=long_description,
@@ -18,10 +18,10 @@ setup(
     author='Manuel Bieri',
     author_email='marbl.ch@outlook.com',
     url='https://github.com/manuelbieri/PRP-APIConnect',
-    download_url='https://github.com/manuelbieri/PRP-APIConnect/archive/refs/tags/v0.1.tar.gz',
+    download_url='https://github.com/manuelbieri/PRP-APIConnect/archive/refs/tags/v1.0.tar.gz',
     keywords=['API'],
     classifiers=[
-        'Development Status :: 3 - Alpha',  # "3 - Alpha" / "4 - Beta" / "5 - Production/Stable"
+        'Development Status :: 4 - Beta',  # "3 - Alpha" / "4 - Beta" / "5 - Production/Stable"
         'Intended Audience :: Developers',
         'Topic :: Software Development',
         'License :: OSI Approved :: MIT License',
