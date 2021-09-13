@@ -10,7 +10,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='PRPConnector',
     packages=find_packages(),
-    version=1.0,
+    version=1.1,
     license='MIT',
     description='Connector for Clients to the PRP-Backend',
     long_description=long_description,
